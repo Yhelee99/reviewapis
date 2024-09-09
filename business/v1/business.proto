@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package api.review.v1;
+package api.business.v1;
 
 import "google/api/annotations.proto";
 import "validate/validate.proto";

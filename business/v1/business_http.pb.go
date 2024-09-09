@@ -19,7 +19,7 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationBusinessCreateReply = "/api.review.v1.Business/CreateReply"
+const OperationBusinessCreateReply = "/api.business.v1.Business/CreateReply"
 
 type BusinessHTTPServer interface {
 	// CreateReply 商家回复评价

@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Business_CreateReply_FullMethodName = "/api.review.v1.Business/CreateReply"
+	Business_CreateReply_FullMethodName = "/api.business.v1.Business/CreateReply"
 )
 
 // BusinessClient is the client API for Business service.
@@ -110,7 +110,7 @@ func _Business_CreateReply_Handler(srv interface{}, ctx context.Context, dec fun
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Business_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.review.v1.Business",
+	ServiceName: "api.business.v1.Business",
 	HandlerType: (*BusinessServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
