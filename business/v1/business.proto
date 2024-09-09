@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package api.review.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "google/protobuf/descriptor.proto";
+
+option go_package = "review_business/api/business/v1;v1";
+option java_multiple_files = true;
+option java_package = "..api.business.v1";
+
+service Business {
+    // 商家回复评价
+    rpc CreateReply (CreateReplyRequest) returns (CreateReplyReply){
+		option (google.api.http) = {
+			post:"/v1/reply/create",
+			body:"*"
+		};
+	};
+}
+
+// 回复评价参数
+message CreateReplyRequest {
+	int64 storeID = 1 [(validate.rules).int64 = {gt: 0}];
+	int64 reviewID = 2 [(validate.rules).int64 = {gt:0}];
+	string context = 3 [(validate.rules).string = {min_len:8, max_len:255}];
+	string picInfo = 4;
+	string videoInfo = 5;
+}
+
+message CreateReplyReply {
+	int64 replyID = 1;
+}
