@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Business_CreateReply_FullMethodName = "/api.business.v1.Business/CreateReply"
+	Business_CreateReply_FullMethodName  = "/api.business.v1.Business/CreateReply"
+	Business_AppealReview_FullMethodName = "/api.business.v1.Business/AppealReview"
 )
 
 // BusinessClient is the client API for Business service.
@@ -28,6 +29,8 @@ const (
 type BusinessClient interface {
 	// 商家回复评价
 	CreateReply(ctx context.Context, in *CreateReplyRequest, opts ...grpc.CallOption) (*CreateReplyReply, error)
+	// 商家申诉评价
+	AppealReview(ctx context.Context, in *AppealReviewRequest, opts ...grpc.CallOption) (*AppealReviewReply, error)
 }
 
 type businessClient struct {
@@ -48,12 +51,24 @@ func (c *businessClient) CreateReply(ctx context.Context, in *CreateReplyRequest
 	return out, nil
 }
 
+func (c *businessClient) AppealReview(ctx context.Context, in *AppealReviewRequest, opts ...grpc.CallOption) (*AppealReviewReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AppealReviewReply)
+	err := c.cc.Invoke(ctx, Business_AppealReview_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BusinessServer is the server API for Business service.
 // All implementations must embed UnimplementedBusinessServer
 // for forward compatibility.
 type BusinessServer interface {
 	// 商家回复评价
 	CreateReply(context.Context, *CreateReplyRequest) (*CreateReplyReply, error)
+	// 商家申诉评价
+	AppealReview(context.Context, *AppealReviewRequest) (*AppealReviewReply, error)
 	mustEmbedUnimplementedBusinessServer()
 }
 
@@ -66,6 +81,9 @@ type UnimplementedBusinessServer struct{}
 
 func (UnimplementedBusinessServer) CreateReply(context.Context, *CreateReplyRequest) (*CreateReplyReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateReply not implemented")
+}
+func (UnimplementedBusinessServer) AppealReview(context.Context, *AppealReviewRequest) (*AppealReviewReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AppealReview not implemented")
 }
 func (UnimplementedBusinessServer) mustEmbedUnimplementedBusinessServer() {}
 func (UnimplementedBusinessServer) testEmbeddedByValue()                  {}
@@ -106,6 +124,24 @@ func _Business_CreateReply_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Business_AppealReview_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AppealReviewRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BusinessServer).AppealReview(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Business_AppealReview_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BusinessServer).AppealReview(ctx, req.(*AppealReviewRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Business_ServiceDesc is the grpc.ServiceDesc for Business service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -116,6 +152,10 @@ var Business_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateReply",
 			Handler:    _Business_CreateReply_Handler,
+		},
+		{
+			MethodName: "AppealReview",
+			Handler:    _Business_AppealReview_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
