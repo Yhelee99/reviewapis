@@ -35,19 +35,9 @@ service Review {
 
 	// B端
 	// 商家回复评价
-	rpc CreateReply (CreateReplyRequest) returns (CreateReplyReply){
-		option (google.api.http) = {
-			post:"/v1/reply/create",
-			body:"*"
-		};
-	};
+	rpc CreateReply (CreateReplyRequest) returns (CreateReplyReply);
 	// 商家申诉评价
-	rpc AppealReview (AppealReviewRequest)returns(AppealReviewReply){
-		option (google.api.http) = {
-			post:"/v1/review/appeal",
-			body:"*"
-		};
-	}
+	rpc AppealReview (AppealReviewRequest)returns(AppealReviewReply);
 
 	// O端
 	// 审核评价
