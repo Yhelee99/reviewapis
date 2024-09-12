@@ -28,7 +28,7 @@ type BusinessHTTPServer interface {
 
 func RegisterBusinessHTTPServer(s *http.Server, srv BusinessHTTPServer) {
 	r := s.Route("/")
-	r.POST("/v1/reply/create", _Business_CreateReply0_HTTP_Handler(srv))
+	r.POST("/b/v1/reply/create", _Business_CreateReply0_HTTP_Handler(srv))
 }
 
 func _Business_CreateReply0_HTTP_Handler(srv BusinessHTTPServer) func(ctx http.Context) error {
@@ -67,7 +67,7 @@ func NewBusinessHTTPClient(client *http.Client) BusinessHTTPClient {
 
 func (c *BusinessHTTPClientImpl) CreateReply(ctx context.Context, in *CreateReplyRequest, opts ...http.CallOption) (*CreateReplyReply, error) {
 	var out CreateReplyReply
-	pattern := "/v1/reply/create"
+	pattern := "/b/v1/reply/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationBusinessCreateReply))
 	opts = append(opts, http.PathTemplate(pattern))

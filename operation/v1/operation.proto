@@ -14,14 +14,14 @@ service Operation {
     // 审核评价
 	rpc AuditReview (AuditReviewRequest)returns(AuditReviewReply){
 		option (google.api.http) = {
-			post:"/v1/audit/review",
+			post:"/o/v1/audit/review",
 			body:"*"
 		};
 	};
 	// 审核申诉
 	rpc AuditAppeal (AuditAppealRequest)returns(AuditAppealReply){
 		option (google.api.http) = {
-			post:"/v1/audit/appeal",
+			post:"/o/v1/audit/appeal",
 			body:"*"
 		};
 	};

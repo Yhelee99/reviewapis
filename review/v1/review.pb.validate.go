@@ -1465,10 +1465,10 @@ func (m *AuditReviewRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetOpUser() <= 0 {
+	if l := utf8.RuneCountInString(m.GetOpUser()); l < 0 || l > 255 {
 		err := AuditReviewRequestValidationError{
 			field:  "OpUser",
-			reason: "value must be greater than 0",
+			reason: "value length must be between 0 and 255 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -1708,10 +1708,10 @@ func (m *AuditAppealRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetOpUser() <= 0 {
+	if l := utf8.RuneCountInString(m.GetOpUser()); l < 0 || l > 255 {
 		err := AuditAppealRequestValidationError{
 			field:  "OpUser",
-			reason: "value must be greater than 0",
+			reason: "value length must be between 0 and 255 runes, inclusive",
 		}
 		if !all {
 			return err

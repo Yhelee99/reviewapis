@@ -14,7 +14,7 @@ service Business {
     // 商家回复评价
     rpc CreateReply (CreateReplyRequest) returns (CreateReplyReply){
 		option (google.api.http) = {
-			post:"/v1/reply/create",
+			post:"/b/v1/reply/create",
 			body:"*"
 		};
 	};

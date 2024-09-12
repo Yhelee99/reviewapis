@@ -31,8 +31,8 @@ type OperationHTTPServer interface {
 
 func RegisterOperationHTTPServer(s *http.Server, srv OperationHTTPServer) {
 	r := s.Route("/")
-	r.POST("/v1/audit/review", _Operation_AuditReview0_HTTP_Handler(srv))
-	r.POST("/v1/audit/appeal", _Operation_AuditAppeal0_HTTP_Handler(srv))
+	r.POST("/o/v1/audit/review", _Operation_AuditReview0_HTTP_Handler(srv))
+	r.POST("/o/v1/audit/appeal", _Operation_AuditAppeal0_HTTP_Handler(srv))
 }
 
 func _Operation_AuditReview0_HTTP_Handler(srv OperationHTTPServer) func(ctx http.Context) error {
@@ -94,7 +94,7 @@ func NewOperationHTTPClient(client *http.Client) OperationHTTPClient {
 
 func (c *OperationHTTPClientImpl) AuditAppeal(ctx context.Context, in *AuditAppealRequest, opts ...http.CallOption) (*AuditAppealReply, error) {
 	var out AuditAppealReply
-	pattern := "/v1/audit/appeal"
+	pattern := "/o/v1/audit/appeal"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationOperationAuditAppeal))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -107,7 +107,7 @@ func (c *OperationHTTPClientImpl) AuditAppeal(ctx context.Context, in *AuditAppe
 
 func (c *OperationHTTPClientImpl) AuditReview(ctx context.Context, in *AuditReviewRequest, opts ...http.CallOption) (*AuditReviewReply, error) {
 	var out AuditReviewReply
-	pattern := "/v1/audit/review"
+	pattern := "/o/v1/audit/review"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationOperationAuditReview))
 	opts = append(opts, http.PathTemplate(pattern))
