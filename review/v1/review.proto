@@ -41,19 +41,9 @@ service Review {
 
 	// O端
 	// 审核评价
-	rpc AuditReview (AuditReviewRequest)returns(AuditReviewReply){
-		option (google.api.http) = {
-			post:"/v1/audit/review",
-			body:"*"
-		};
-	};
+	rpc AuditReview (AuditReviewRequest)returns(AuditReviewReply);
 	// 审核申诉
-	rpc AuditAppeal (AuditAppealRequest)returns(AuditAppealReply){
-		option (google.api.http) = {
-			post:"/v1/audit/appeal",
-			body:"*"
-		};
-	};
+	rpc AuditAppeal (AuditAppealRequest)returns(AuditAppealReply);
 }
 
 // 评价信息
@@ -147,12 +137,13 @@ message AuditReviewReply {
 // 审核申诉参数
 message AuditAppealRequest {
 	int64 appealID = 1 [(validate.rules).int64 = {gt: 0}];
-	string opUser = 2 [(validate.rules).string = {min_len:0,max_len:255}];
-	int32 status = 3 [(validate.rules).int32 = {gt: 0}];
-	optional string opMark = 4;
+	int64 reviewID = 2 [(validate.rules).int64 = {gt: 0}];
+	string opUser = 3 [(validate.rules).string = {min_len:0,max_len:255}];
+	int32 status = 4 [(validate.rules).int32 = {gt: 0}];
+	optional string opMark = 5;
 }
 
 message AuditAppealReply {
 	int64 appealID = 1;
-	int32 status = 2;
+	string status = 2;
 }

@@ -1708,6 +1708,17 @@ func (m *AuditAppealRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if m.GetReviewID() <= 0 {
+		err := AuditAppealRequestValidationError{
+			field:  "ReviewID",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if l := utf8.RuneCountInString(m.GetOpUser()); l < 0 || l > 255 {
 		err := AuditAppealRequestValidationError{
 			field:  "OpUser",
