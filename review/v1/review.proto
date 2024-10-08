@@ -33,6 +33,9 @@ service Review {
 		};
 	};
 
+	// ListReviewByStoreID 查看StoreID下所有评价(分页)
+	rpc ListReviewByStoreID(ListReviewByStoreIDRequest)returns(ListReviewByStoreIDReply){};
+
 	// B端
 	// 商家回复评价
 	rpc CreateReply (CreateReplyRequest) returns (CreateReplyReply);
@@ -89,6 +92,16 @@ message ListReviewByUserIDRequest {
 	int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
 }
 message ListReviewByUserIDReply {
+	repeated ReviewInfo list = 1;
+}
+
+// 查看StoreID下所有评价
+message ListReviewByStoreIDRequest {
+	int64 storeID = 1 [(validate.rules).int64 = {gt: 0}];
+	int64 page = 2 ;
+	int64 size = 3 [(validate.rules).int64 = {gt: 0}];
+}
+message ListReviewByStoreIDReply {
 	repeated ReviewInfo list = 1;
 }
 
